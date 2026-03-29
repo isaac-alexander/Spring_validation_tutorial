@@ -32,18 +32,19 @@ public class SpringSecurity {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(Customizer -> Customizer.disable())
                 .authorizeHttpRequests((authorize) ->
-                        authorize.requestMatchers("/register/**").permitAll()
+                        authorize.requestMatchers("/").permitAll()
+                                .requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/index").permitAll()
                                 .requestMatchers("/users").hasRole("ADMIN")
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")
-                                .loginProcessingUrl("/login")
+//                                .loginProcessingUrl("/login")
                                 .defaultSuccessUrl("/users")
                                 .permitAll()
                 ).logout(
                         logout -> logout
-                                .logoutSuccessUrl("/logout")
+                                .logoutSuccessUrl("/login")
                                 .invalidateHttpSession(true)
                                 .deleteCookies("JSESSIONID")
                 );
