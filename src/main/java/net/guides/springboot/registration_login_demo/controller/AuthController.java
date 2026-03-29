@@ -25,6 +25,12 @@ public class AuthController {
         this.userService = userService;
     }
 
+
+    @GetMapping("/")
+    public String goHome() {
+        return "redirect:/login";
+    }
+
     // handler method to handle home page request
     @GetMapping("/index")
     public String home(){
@@ -42,9 +48,7 @@ public class AuthController {
 
     // handler method to handle user registration form submit request
     @PostMapping("/register/save")
-    public String registration(@Valid @ModelAttribute("user") UserDto userDto,
-                               BindingResult result,
-                               Model model) {
+    public String registration(@Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model) {
         User existingUser = userService.findUserByEmail(userDto.getEmail());
 
         if (existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()) {
@@ -73,6 +77,11 @@ public class AuthController {
     @GetMapping("/login")
     public String login() {
         return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
+        return "redirect:/login";
     }
 
 }
