@@ -9,8 +9,7 @@ import net.guides.springboot.registration_login_demo.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,7 +43,8 @@ public class UserServiceImpl implements UserService {
         if(role == null) {
             role = checkRoleExist();
         }
-        user.setRoles(Arrays.asList(role));
+
+        user.setRoles(List.of(role));
         userRepository.save(user);
 
     }
